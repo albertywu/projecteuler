@@ -1,0 +1,22 @@
+{
+  "name": "projecteuler",
+  "version": "1.0.0",
+  "description": "",
+  "main": "1.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/albertywu/projecteuler.git"
+  },
+  "author": "Albert Wu <albertywu@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/albertywu/projecteuler/issues"
+  },
+  "homepage": "https://github.com/albertywu/projecteuler#readme",
+  "dependencies": {
+    "sieve": "0.0.4"
+  }
+}
