@@ -12,12 +12,13 @@ const numRoutes = (y, x, N) => {
     return 0 // we're home!
   }
 
-  let numRoutesToEast = isRouteToEast(y, x, N) ? 1 + numRoutes(y, x + 1, N) : 0
-  let numRoutesToSouth = isRouteToSouth(y, x, N) ? 1 + numRoutes(y + 1, x, N) : 0
+  let numRoutesToEast = isRouteToEast(y, x, N) ? numRoutes(y, x + 1, N) : 0
+  let numRoutesToSouth = isRouteToSouth(y, x, N) ? numRoutes(y + 1, x, N) : 0
+  let newRoutesFromNode = isRouteToEast(y, x, N) && isRouteToSouth(y, x, N) ? 2 : 0
 
-  return numRoutesToEast + numRoutesToSouth
+  return newRoutesFromNode + numRoutesToEast + numRoutesToSouth
 }
 
 console.log(
-  numRoutes(0, 0, 1)
+  numRoutes(0, 0, 2)
 )
