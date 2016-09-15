@@ -1,24 +1,52 @@
 // https://projecteuler.net/problem=15
 
-const isRouteToEast = (y, x, N) => x < N
-const isRouteToSouth = (y, x, N) => y < N
-
-// returns the # of routes in a lattice from (0,0) to (N,N)
-// valid routes are in the "east" or "south" direction
-//
-// (y: number, x: number, N: number) => number
-const numRoutes = (y, x, N) => {
-  if (y === N && x === N) {
-    return 0 // we're home!
-  }
-
-  let numRoutesToEast = isRouteToEast(y, x, N) ? numRoutes(y, x + 1, N) : 0
-  let numRoutesToSouth = isRouteToSouth(y, x, N) ? numRoutes(y + 1, x, N) : 0
-  let newRoutesFromNode = isRouteToEast(y, x, N) && isRouteToSouth(y, x, N) ? 2 : 0
-
-  return newRoutesFromNode + numRoutesToEast + numRoutesToSouth
+// ex: 3x3 matrix
+// [
+//   [null, null, null],
+//   [null, null, null],
+//   [null, null, null]
+// ]
+// make empty N x N matrix
+function makeMatrix(N) {
+  return Array.from(
+    new Array(N), () => new Array(N).fill(null)
+  )
 }
 
+// returns true if any cell in the matrix is null
+// (matrix: number[][]) => boolean
+function isAnyNull(matrix) {
+  return matrix
+    .map(row => row.reduce((acc, curr) => acc || curr === null, false))
+    .includes(true)
+}
+
+// (N: number) => { M: number[][], numPaths: number}
+function paths(N) {
+  const M = makeMatrix(N)
+
+  // keep filling in values until matrix has values for all slots
+  while (isAnyNull(M)) {
+    for (let y = 0; y < N; y++) {
+      for (let x = 0; x < N; x++) {
+        if (y === 0 || x === 0) {
+          M[y][x] = 1
+        }
+        // if (y, x) contains a value at (y-1, x) AND (y, x-1), set value at (y, x) to M[y-1][x] + M[y][x-1]
+        if (M[y-1] && M[y - 1][x] && M[y][x - 1]) {
+          M[y][x] = M[y - 1][x] + M[y][x - 1]
+        }
+      }
+    }
+  }
+  return {
+    M,
+    numPaths: M[N - 1][N - 1]
+  }
+}
+
+function solve(N) { return paths(N + 1) }
+
 console.log(
-  numRoutes(0, 0, 2)
+  solve(20) // 137846528820
 )
