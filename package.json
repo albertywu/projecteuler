@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/albertywu/projecteuler#readme",
   "dependencies": {
+    "lodash.max": "^4.0.1",
     "sieve": "0.0.4"
   }
 }
